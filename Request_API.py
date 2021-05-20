@@ -9,6 +9,7 @@ def request_api(api):
 
     #Demande de Token : https://data.bordeaux-metropole.fr/opendata/key
     token = '' #A remplir
+    link = f'https://data.bordeaux-metropole.fr/geojson?key={token}&typename={api}'    
 
     #Initialisation d'un DataFrame vide en cas d'échec
     df = pd.DataFrame()
@@ -17,14 +18,11 @@ def request_api(api):
     start = time.time()
 
     print('')
-    print('>>>Initialisation')
-    print(f'<{api.upper()}> {dt.now().strftime("%H:%M:%S")}')
+    print(f'<API> {api} {dt.now().strftime("%H:%M:%S")}\n<Request API> launched')
 
     try:
 
         #Lancement de la Requête API
-        print('<Request API> launched')
-        link = f'https://data.bordeaux-metropole.fr/geojson?key={token}&typename={api}'    
         r = rq.get(link)
         
         time.sleep(2)
@@ -105,7 +103,7 @@ def mode_debug(switch):
         schedule.every(m).minutes.at(':00').do(update_csv, api, path)
 
 #Chargeur
-api_list = ['API'] #Liste à remplir
+api_list = [''] #Liste à remplir
 
 for api in api_list:
 
